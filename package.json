@@ -1,7 +1,10 @@
 {
   "name": "homematic2mqtt",
   "version": "1.0.0",
-  "description": "Connect homematic CCU to mqtt broker",
+  "description": "Connect a homematic CCU to a mqtt broker",
+  "keywords": ["homematic", "home-assistant", "mqtt"],
+  "author": "Max Jöhnk <maxjoehnk@gmail.com>",
+  "license": "MIT",
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
@@ -9,9 +12,6 @@
     "build": "tsc -p tsconfig.json",
     "format": "prettier --write src/**/*.ts"
   },
-  "keywords": [],
-  "author": "Max Jöhnk <maxjoehnk@gmail.com>",
-  "license": "MIT",
   "devDependencies": {
     "@types/node": "^14.14.13",
     "prettier": "^2.2.1",
