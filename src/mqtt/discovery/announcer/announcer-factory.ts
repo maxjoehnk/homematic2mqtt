@@ -3,7 +3,7 @@ import { DeviceAnnouncer } from './device-announcer';
 import { WindowContactAnnouncer } from './window-contact-announcer';
 import { MqttConnection } from '../../connection';
 import { defaultContainer, Provide } from '../../../ioc-container';
-import { ThermostatAnnouncer } from './thermostat-announcer';
+import { ClimateAnnouncer } from './climate-announcer';
 import { getLogger } from '../../../logger';
 import { interfaces } from 'inversify';
 import { Device } from '../../../devices/device';
@@ -13,7 +13,7 @@ export class AnnouncerFactory {
   private static readonly logger = getLogger();
 
   private readonly announcers: DeviceAnnouncerFactory[] = [
-    ThermostatAnnouncer,
+    ClimateAnnouncer,
     WindowContactAnnouncer,
   ];
 

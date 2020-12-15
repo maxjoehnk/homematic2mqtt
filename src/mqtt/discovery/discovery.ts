@@ -1,6 +1,6 @@
 import { Provide, ProvideInterface } from '../../ioc-container';
 import { AnnouncerFactory } from './announcer';
-import { ApplicationInitializer } from '../../application-initializer';
+import { ApplicationInitializer } from '../../lifecycle/application-initializer';
 import { DeviceRegistry } from '../../devices/device-registry';
 
 @Provide()

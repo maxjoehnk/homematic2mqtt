@@ -46,4 +46,31 @@ export class InterfacesApi {
       paramsetKey,
     });
   }
+
+  async getParamsetDescription(
+    interfaceId: string,
+    address: string,
+    paramsetKey: ParamsetKey
+  ): Promise<any> {
+    return await this.rpc.call(methods.interfaceGetParamsetDescription, {
+      interface: interfaceId,
+      address,
+      paramsetKey,
+    });
+  }
+
+  setValue(
+    interfaceId: string,
+    address: string,
+    valueKey: string,
+    value: any
+  ): Promise<any> {
+    return this.rpc.call(methods.interfaceSetValue, {
+      interface: interfaceId,
+      address,
+      valueKey,
+      type: 'string',
+      value: value.toString(),
+    });
+  }
 }

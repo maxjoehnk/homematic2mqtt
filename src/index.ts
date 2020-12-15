@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import './mqtt';
 import './state-publisher/state-publisher';
+import './state-publisher/bridge-state-publisher';
 import './homematic/xml/xml-rpc-server';
 import './homematic/xml/xml-rpc-client';
 import './homematic/json/json-rpc-client';
@@ -8,7 +9,8 @@ import { safeLoad } from 'js-yaml';
 import { readFileSync } from 'fs';
 import { Config, ConfigToken } from './config';
 import { defaultContainer } from './ioc-container';
-import { ApplicationInitializer } from './application-initializer';
+import { ApplicationInitializer } from './lifecycle/application-initializer';
+import { ApplicationFinalizer } from './lifecycle/application-finalizer';
 
 const configContent = readFileSync('config.yml', 'utf8');
 const config: Config = safeLoad(configContent);
@@ -22,5 +24,19 @@ async function main() {
     await initializer.initialize();
   }
 }
+
+process.on('SIGINT', () => {
+  (async () => {
+    const finalizers = defaultContainer.getAll(ApplicationFinalizer);
+    for (const finalizer of finalizers) {
+      await finalizer.shutdown();
+    }
+  })()
+    .then(() => process.exit(0))
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
+});
 
 main();

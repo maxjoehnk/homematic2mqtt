@@ -1,4 +1,4 @@
-import { ApplicationInitializer } from '../application-initializer';
+import { ApplicationInitializer } from '../lifecycle/application-initializer';
 import { ProvideInterface, Singleton } from '../ioc-container';
 import { DevicesApi } from '../homematic/json/devices-api';
 import { Config, ConfigToken } from '../config';

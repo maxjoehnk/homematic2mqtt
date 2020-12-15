@@ -4,7 +4,7 @@ import { Config, ConfigToken, JsonInterfaceConfig } from '../../config';
 import { AuthenticatedRequest, LoginRequest } from './models';
 import { methods } from './methods';
 import { getLogger } from '../../logger';
-import { ApplicationInitializer } from '../../application-initializer';
+import { ApplicationInitializer } from '../../lifecycle/application-initializer';
 
 @ProvideInterface(ApplicationInitializer)
 export class JsonRpcClient implements ApplicationInitializer {

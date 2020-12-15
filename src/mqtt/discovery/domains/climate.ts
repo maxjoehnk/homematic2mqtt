@@ -1,6 +1,6 @@
 import { BaseDiscoveryModel } from './base';
 
-export interface HvacDiscoveryModel extends BaseDiscoveryModel {
+export interface ClimateDiscoveryModel extends BaseDiscoveryModel {
   action_template?: string;
   action_topic?: string;
   aux_command_topic?: string;

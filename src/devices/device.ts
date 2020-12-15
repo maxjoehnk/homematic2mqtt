@@ -1,4 +1,5 @@
 import { DeviceDetails } from '../homematic/json';
+import { ChannelType } from '../homematic/json/models/device-channel';
 
 export class Device {
   private subscribers: (() => void)[] = [];
@@ -47,5 +48,11 @@ export class Device {
       }
       this.timerId = null;
     });
+  }
+
+  get isClimate(): boolean {
+    return this.details.channels.some(
+      (c) => c.channelType === ChannelType.HeatingClimateControlTransceiver
+    );
   }
 }

@@ -81,6 +81,9 @@ export abstract class DeviceAnnouncer {
         {
           topic: `homematic2mqtt/${device.name}/availability`,
         },
+        {
+          topic: 'homematic2mqtt/bridge/availability',
+        },
       ],
     };
   }
@@ -92,6 +95,7 @@ export abstract class DeviceAnnouncer {
     return {
       ...base,
       device_class: SensorDeviceClass.Battery,
+      unit_of_measurement: '%',
       state_topic: this.getTopic(device),
       json_attributes_topic: this.getTopic(device),
       value_template: '{{ value_json.battery }}',

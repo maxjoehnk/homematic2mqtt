@@ -1,6 +1,6 @@
 import { DeviceAnnouncer, EntityConfiguration } from './device-announcer';
 import { BaseDiscoveryModel } from '../domains/base';
-import { HvacDiscoveryModel, HvacMode } from '../domains/hvac';
+import { ClimateDiscoveryModel, HvacMode } from '../domains/climate';
 import { Provide } from '../../../ioc-container';
 import { MqttConnection } from '../../connection';
 import { InterfacesApi } from '../../../homematic/json/interfaces-api';
@@ -9,7 +9,7 @@ import { SensorDeviceClass } from '../domains/sensor_device_class';
 import { Device } from '../../../devices/device';
 
 @Provide()
-export class ThermostatAnnouncer extends DeviceAnnouncer {
+export class ClimateAnnouncer extends DeviceAnnouncer {
   static supportsDevice(device: Device): boolean {
     return device.details.type === 'HmIP-eTRV-2';
   }
@@ -44,7 +44,7 @@ export class ThermostatAnnouncer extends DeviceAnnouncer {
   private getHvacEntity(
     base: BaseDiscoveryModel,
     device: Device
-  ): HvacDiscoveryModel {
+  ): ClimateDiscoveryModel {
     return {
       ...base,
       name: base.device.name,
@@ -55,8 +55,11 @@ export class ThermostatAnnouncer extends DeviceAnnouncer {
       temperature_state_template: '{{ value_json.target_temperature }}',
       mode_state_topic: this.getTopic(device),
       mode_state_template: '{{ value_json.mode }}',
+      mode_command_topic: `${this.getTopic(device)}/set/mode`,
+      temperature_command_topic: `${this.getTopic(device)}/set/temperature`,
       min_temp: device.state.TEMPERATURE_MINIMUM,
       max_temp: device.state.TEMPERATURE_MAXIMUM,
+      temp_step: 0.5,
     };
   }
 

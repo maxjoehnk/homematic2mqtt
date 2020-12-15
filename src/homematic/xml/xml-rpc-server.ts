@@ -1,7 +1,7 @@
 import { inject } from 'inversify';
 import { Config, ConfigToken } from '../../config';
 import { createServer } from 'homematic-xmlrpc';
-import { ApplicationInitializer } from '../../application-initializer';
+import { ApplicationInitializer } from '../../lifecycle/application-initializer';
 import { ProvideInterface, Singleton } from '../../ioc-container';
 import { getLogger } from '../../logger';
 import { DeviceRegistry } from '../../devices/device-registry';

@@ -1,9 +1,5 @@
 import * as Logality from 'logality';
-import {
-  DeviceDetails,
-  JsonRpcRequest,
-  JsonRpcResponse,
-} from './homematic/json';
+import { DeviceDetails, JsonRpcRequest } from './homematic/json';
 import { BaseDiscoveryModel } from './mqtt/discovery/domains/base';
 
 const logger = Logality({
@@ -23,6 +19,7 @@ const logger = Logality({
       path: 'context.req',
       value: {
         method: request.method,
+        params: request.params,
       },
     }),
     discoveryModels: (discoveryModels: { config: BaseDiscoveryModel }[]) => ({

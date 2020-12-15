@@ -9,4 +9,6 @@ export const methods = {
   interfaceListInterfaces: 'Interface.listInterfaces',
   interfaceListDevices: 'Interface.listDevices',
   interfaceGetParamset: 'Interface.getParamset',
+  interfaceGetParamsetDescription: 'Interface.getParamsetDescription',
+  interfaceSetValue: 'Interface.setValue',
 };

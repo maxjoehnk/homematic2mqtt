@@ -1,14 +1,17 @@
-import { ApplicationInitializer } from '../../application-initializer';
+import { ApplicationInitializer } from '../../lifecycle/application-initializer';
 import { ProvideInterface, Singleton } from '../../ioc-container';
 import { getLogger } from '../../logger';
 import { inject } from 'inversify';
 import { Config, ConfigToken } from '../../config';
 import { createClient } from 'homematic-xmlrpc';
 import { ParamsetKey } from '../json/interfaces-api';
+import { ApplicationFinalizer } from '../../lifecycle/application-finalizer';
 
 @Singleton()
 @ProvideInterface(ApplicationInitializer)
-export class XmlRpcClient implements ApplicationInitializer {
+@ProvideInterface(ApplicationFinalizer)
+export class XmlRpcClient
+  implements ApplicationInitializer, ApplicationFinalizer {
   private static readonly logger = getLogger();
   private client;
 
@@ -23,28 +26,25 @@ export class XmlRpcClient implements ApplicationInitializer {
 
   async initialize(): Promise<void> {
     await this.init();
-    this.setupShutdownListener();
+  }
+
+  async shutdown(): Promise<void> {
+    if (this.client == null) {
+      return;
+    }
+    await this.call('init', [this.getUrl(), '']);
   }
 
   getParamset(address: string, paramsetKey: ParamsetKey): Promise<any> {
     return this.call('getParamset', [address, paramsetKey]);
   }
 
-  private init(): Promise<void> {
-    return this.call('init', [this.getUrl(), 'homematic2mqtt']);
+  setValue(address: string, valueKey: string, value: any): Promise<any> {
+    return this.call('setValue', [address, valueKey, value]);
   }
 
-  private setupShutdownListener() {
-    process.on('SIGINT', () => {
-      this.call('init', [this.getUrl(), ''])
-        .catch((err) => {
-          XmlRpcClient.logger.error('Unregistering of rpc server failed', {
-            error: err,
-          });
-          process.exit(1);
-        })
-        .then(() => process.exit(0));
-    });
+  private init(): Promise<void> {
+    return this.call('init', [this.getUrl(), 'homematic2mqtt']);
   }
 
   private call<TResponse>(

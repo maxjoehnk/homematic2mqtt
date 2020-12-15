@@ -1,9 +1,8 @@
-import { ApplicationInitializer } from '../application-initializer';
+import { ApplicationInitializer } from '../lifecycle/application-initializer';
 import { Provide, ProvideInterface } from '../ioc-container';
 import { DeviceStatePublisherFactory } from './factory';
 import { DeviceStatePublisher } from './device-state-publisher';
 import { DeviceRegistry } from '../devices/device-registry';
-import { InterfacesApi } from '../homematic/json/interfaces-api';
 
 @Provide()
 @ProvideInterface(ApplicationInitializer)

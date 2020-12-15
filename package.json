@@ -5,7 +5,8 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "start-xml": "ts-node -P tsconfig.json test.ts"
+    "start-xml": "ts-node -P tsconfig.json test.ts",
+    "format": "prettier --write src/**/*.ts"
   },
   "keywords": [],
   "author": "Max Jöhnk <maxjoehnk@gmail.com>",
