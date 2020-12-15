@@ -19,7 +19,7 @@ export class ContactStateEnhancer implements StateEnhancer {
 
     return {
       ...state,
-      state: value === 1 ? 'on' : 'off',
+      state: value === 1 ? 'ON' : 'OFF',
     };
   }
 }
