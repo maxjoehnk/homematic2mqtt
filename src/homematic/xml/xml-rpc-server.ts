@@ -67,7 +67,7 @@ export class XmlRpcServer implements ApplicationInitializer {
     const port = 2031;
     return new Promise((resolve) => {
       this.server = createServer(
-        { host: this.config.homematic.xml.local_ip, port },
+        { host: '0.0.0.0', port },
         () => {
           XmlRpcServer.logger.info('XML-RPC Server listening', { port });
           resolve();

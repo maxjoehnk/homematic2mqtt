@@ -6,7 +6,8 @@
     "lib": ["es6"],
     "types": ["reflect-metadata", "node"],
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "outDir": "lib"
   },
   "exclude": [
     "node_modules"

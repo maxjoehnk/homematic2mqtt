@@ -6,6 +6,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "start-xml": "ts-node -P tsconfig.json test.ts",
+    "build": "tsc -p tsconfig.json",
     "format": "prettier --write src/**/*.ts"
   },
   "keywords": [],
