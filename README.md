@@ -1,6 +1,6 @@
-![Docker Build Status](https://img.shields.io/docker/build/maxjoehnk/homematic2mqtt?style=flat-square)
-![License](https://img.shields.io/github/license/maxjoehnk/homematic2mqtt?style=flat-square)
-![GitHub package.json version](https://img.shields.io/github/package-json/v/maxjoehnk/homematic2mqtt?style=flat-square)
+[![License](https://img.shields.io/github/license/maxjoehnk/homematic2mqtt?style=flat-square)](https://github.com/maxjoehnk/homematic2mqtt/blob/master/LICENSE)
+[![Docker Build Status](https://img.shields.io/docker/build/maxjoehnk/homematic2mqtt?style=flat-square)](https://hub.docker.com/r/maxjoehnk/homematic2mqtt)
+[![package.json version](https://img.shields.io/github/package-json/v/maxjoehnk/homematic2mqtt?style=flat-square)](https://github.com/maxjoehnk/homematic2mqtt/blob/master/package.json)
 
 # homematic2mqtt
 
