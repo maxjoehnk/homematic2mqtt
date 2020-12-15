@@ -1,6 +1,6 @@
 {
   "name": "homematic2mqtt",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Connect a homematic CCU to a mqtt broker",
   "keywords": ["homematic", "home-assistant", "mqtt"],
   "author": "Max Jöhnk <maxjoehnk@gmail.com>",
