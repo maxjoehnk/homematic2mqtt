@@ -17,7 +17,9 @@ export class MqttConnection {
     this.logger.debug('Publishing mqtt message', { topic });
     const payload = this.serializePayload(message);
     return new Promise((resolve, reject) => {
-      this.client.publish(topic, payload, (err) => {
+      this.client.publish(topic, payload, {
+        retain: true
+      }, (err) => {
         if (err) {
           return reject(err);
         }
