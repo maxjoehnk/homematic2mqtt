@@ -19,7 +19,7 @@ export enum DeviceChannelCategory {
   Receiver = 'CATEGORY_RECEIVER',
 }
 
-export interface DeviceChannel {
+export interface JsonDeviceChannel {
   id: string;
   name: string;
   address: string;

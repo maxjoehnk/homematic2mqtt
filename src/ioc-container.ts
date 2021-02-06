@@ -1,5 +1,4 @@
 import { Container, injectable, interfaces } from 'inversify';
-import exp = require('constants');
 
 export const defaultContainer = new Container();
 

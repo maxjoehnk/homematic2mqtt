@@ -1,5 +1,5 @@
 import * as Logality from 'logality';
-import { DeviceDetails, JsonRpcRequest } from './homematic/json';
+import { DeviceDetails, JsonRpcRequest } from './homematic/native/json';
 import { BaseDiscoveryModel } from './mqtt/discovery/domains/base';
 
 const logger = Logality({
@@ -37,6 +37,10 @@ const logger = Logality({
     error: (error: any) => ({
       path: 'context.error',
       value: error,
+    }),
+    veap: (veapWrite: { path: string; value: any }) => ({
+      path: 'context.veap',
+      value: veapWrite,
     }),
   },
 });

@@ -14,8 +14,8 @@ export class TemperatureSubscriber implements Subscriber {
     return `homematic2mqtt/${this.climateDevice.device.name}/set/temperature`;
   }
 
-  async receive(payload: number) {
-    await this.climateDevice.setTemperature(payload);
+  async receive(payload: string) {
+    await this.climateDevice.setTemperature(parseFloat(payload));
   }
 }
 

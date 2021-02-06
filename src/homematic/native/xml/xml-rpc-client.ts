@@ -1,11 +1,11 @@
-import { ApplicationInitializer } from '../../lifecycle/application-initializer';
-import { ProvideInterface, Singleton } from '../../ioc-container';
-import { getLogger } from '../../logger';
+import { ApplicationInitializer } from '../../../lifecycle/application-initializer';
+import { ProvideInterface, Singleton } from '../../../ioc-container';
+import { getLogger } from '../../../logger';
 import { inject } from 'inversify';
-import { Config, ConfigToken } from '../../config';
+import { Config, ConfigToken } from '../../../config';
 import { createClient } from 'homematic-xmlrpc';
 import { ParamsetKey } from '../json/interfaces-api';
-import { ApplicationFinalizer } from '../../lifecycle/application-finalizer';
+import { ApplicationFinalizer } from '../../../lifecycle/application-finalizer';
 
 @Singleton()
 @ProvideInterface(ApplicationInitializer)
@@ -15,16 +15,18 @@ export class XmlRpcClient
   private static readonly logger = getLogger();
   private client;
 
-  constructor(@inject(ConfigToken) private config: Config) {
-    this.client = createClient({
-      host: config.homematic.xml.interfaces.ip.host,
-      port: config.homematic.xml.interfaces.ip.port,
-    });
-  }
+  constructor(@inject(ConfigToken) private config: Config) {}
 
   order = 2;
 
   async initialize(): Promise<void> {
+    if (this.config.homematic.xml == null) {
+      return;
+    }
+    this.client = createClient({
+      host: this.config.homematic.xml.interfaces.ip.host,
+      port: this.config.homematic.xml.interfaces.ip.port,
+    });
     await this.init();
   }
 

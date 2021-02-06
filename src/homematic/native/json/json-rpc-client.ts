@@ -1,10 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
-import { defaultContainer, ProvideInterface } from '../../ioc-container';
-import { Config, ConfigToken, JsonInterfaceConfig } from '../../config';
+import { defaultContainer, ProvideInterface } from '../../../ioc-container';
+import { Config, ConfigToken, JsonInterfaceConfig } from '../../../config';
 import { AuthenticatedRequest, LoginRequest } from './models';
 import { methods } from './methods';
-import { getLogger } from '../../logger';
-import { ApplicationInitializer } from '../../lifecycle/application-initializer';
+import { getLogger } from '../../../logger';
+import { ApplicationInitializer } from '../../../lifecycle/application-initializer';
 
 @ProvideInterface(ApplicationInitializer)
 export class JsonRpcClient implements ApplicationInitializer {
@@ -19,6 +19,9 @@ export class JsonRpcClient implements ApplicationInitializer {
   order = 0;
 
   initialize(): Promise<void> {
+    if (this.config == null) {
+      return;
+    }
     return this.login(this.config.username, this.config.password);
   }
 

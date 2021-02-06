@@ -6,8 +6,20 @@
 
 Provides a bridge between a Homematic CCU / [Raspberrymatic](https://raspberrymatic.de/) and [Home Assistant](https://home-assistant.io/) via MQTT.
 
+For improved reliability please install [CCU-Jack](https://github.com/mdzio/ccu-jack) as this will be the api I'll be primarily developing for.
+
 ## Configuration
 
+### CCU-Jack
+```yaml
+mqtt: <mqtt broker host>
+homematic:
+  jack:
+    ip: <server ip>
+  ignore: [] # you can provide a list of device addresses to ignore
+```
+
+### Native CCU Apis
 ```yaml
 mqtt: <mqtt broker host>
 homematic:
@@ -21,5 +33,5 @@ homematic:
     host: <ccu ip>
     username: <ccu username>
     password: <ccu password>
-  ignore: [] # you can provide a list of device ids to ignore
+  ignore: [] # you can provide a list of device addresses to ignore
 ```

@@ -1,33 +1,42 @@
-import { DeviceDetails } from '../homematic/json';
-import { ChannelType } from '../homematic/json/models/device-channel';
+import { ChannelType } from '../homematic/native/json/models/device-channel';
+import { DeviceChannel } from './channels';
 
-export class Device {
+export abstract class Device {
   private subscribers: (() => void)[] = [];
   private timerId = null;
 
   state: { [key: string]: any } = {};
 
-  details: DeviceDetails;
+  /**
+   * Name of the device
+   */
+  abstract get name(): string;
 
-  get id() {
-    return this.details.id;
-  }
+  /**
+   * Address of the device
+   *
+   * Equal to the serial number
+   */
+  abstract get address(): string;
 
-  get name() {
-    return this.details.name;
-  }
+  /**
+   * Connection type to CCU
+   *
+   * e.g. HmIP-RF for Wireless HomeMatic IP
+   */
+  abstract get interfaceType(): string;
 
-  get address() {
-    return this.details.address;
-  }
+  /**
+   * Returns installed firmware version
+   */
+  abstract get firmwareVersion(): string;
 
-  get interface(): string {
-    return this.details.interface;
-  }
+  /**
+   * Returns the device model
+   */
+  abstract get model(): string;
 
-  constructor(details: DeviceDetails) {
-    this.details = details;
-  }
+  abstract get channels(): DeviceChannel[];
 
   updateValue(channelAddress: string, key: string, value: number | boolean) {
     this.state[key] = value;
@@ -38,7 +47,7 @@ export class Device {
     this.subscribers.push(callback);
   }
 
-  callSubscribers() {
+  private callSubscribers() {
     if (this.timerId != null) {
       return;
     }
@@ -50,9 +59,12 @@ export class Device {
     });
   }
 
+  /**
+   * Returns whether this is a climate device
+   */
   get isClimate(): boolean {
-    return this.details.channels.some(
-      (c) => c.channelType === ChannelType.HeatingClimateControlTransceiver
+    return this.channels.some(
+      (c) => c.type === ChannelType.HeatingClimateControlTransceiver
     );
   }
 }

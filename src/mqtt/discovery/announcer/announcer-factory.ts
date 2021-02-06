@@ -1,4 +1,3 @@
-import { DeviceDetails } from '../../../homematic/json';
 import { DeviceAnnouncer } from './device-announcer';
 import { WindowContactAnnouncer } from './window-contact-announcer';
 import { MqttConnection } from '../../connection';
@@ -27,7 +26,7 @@ export class AnnouncerFactory {
 
     if (Announcer == null) {
       throw new Error(
-        `No announcer for device ${device.name} (${device.details.type})`
+        `No announcer for device ${device.name} (${device.model})`
       );
     }
 

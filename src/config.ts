@@ -6,12 +6,13 @@ export interface Config {
 }
 
 export interface HomematicConfig {
-  json: JsonInterfaceConfig;
-  xml: {
+  json?: JsonInterfaceConfig;
+  xml?: {
     interfaces: { [key: string]: XmlInterfaceConfig };
     local_ip: string;
   };
-  ignore: number[];
+  jack?: JackInterfaceConfig;
+  ignore: string[];
   entities: {
     battery?: boolean;
     voltage?: boolean;
@@ -28,4 +29,10 @@ export interface JsonInterfaceConfig {
   host: string;
   username: string;
   password: string;
+}
+
+export interface JackInterfaceConfig {
+  ip: string;
+  httpPort?: number;
+  mqttPort?: number;
 }

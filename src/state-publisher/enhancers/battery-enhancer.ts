@@ -24,9 +24,7 @@ export class BatteryStateEnhancer implements StateEnhancer {
 
   private getMaxVoltage(device: Device): number {
     for (let [deviceTypes, value] of deviceVoltageConfigurations) {
-      if (
-        deviceTypes.some((deviceType) => device.details.type === deviceType)
-      ) {
+      if (deviceTypes.some((deviceType) => device.model === deviceType)) {
         return value;
       }
     }

@@ -1,4 +1,4 @@
-import { DeviceChannel } from './device-channel';
+import { JsonDeviceChannel } from './device-channel';
 
 export interface DeviceDetails {
   id: string;
@@ -9,5 +9,5 @@ export interface DeviceDetails {
   operateGroupOnly: string;
   isReady: string;
   enabledServiceMsg: string;
-  channels: DeviceChannel[];
+  channels: JsonDeviceChannel[];
 }

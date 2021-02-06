@@ -1,12 +1,8 @@
-import { InterfacesApi } from '../homematic/json/interfaces-api';
-import { XmlRpcClient } from '../homematic/xml/xml-rpc-client';
 import { Provide } from '../ioc-container';
 import { Device } from './device';
-import {
-  ChannelType,
-  DeviceChannel,
-} from '../homematic/json/models/device-channel';
 import { HvacMode } from '../mqtt/discovery/domains/climate';
+import { DeviceChannel, ChannelType } from './channels';
+import { DeviceApi } from './device-api';
 
 const OFF_VALUE = 4.5;
 
@@ -18,13 +14,9 @@ enum HeatingMode {
 export class ClimateDevice {
   private heatingChannel: DeviceChannel;
 
-  constructor(
-    public device: Device,
-    private interfacesApi: InterfacesApi,
-    private xmlRpcClient: XmlRpcClient
-  ) {
-    this.heatingChannel = this.device.details.channels.find(
-      (c) => c.channelType === ChannelType.HeatingClimateControlTransceiver
+  constructor(public device: Device, private deviceApi: DeviceApi) {
+    this.heatingChannel = this.device.channels.find(
+      (c) => c.type === ChannelType.HeatingClimateControlTransceiver
     );
   }
 
@@ -53,9 +45,7 @@ export class ClimateDevice {
   }
 
   async setTemperature(temperature: number) {
-    await this.setValue('SET_POINT_TEMPERATURE', {
-      explicitDouble: temperature,
-    });
+    await this.setDouble('SET_POINT_TEMPERATURE', temperature);
   }
 
   async setMode(mode: HvacMode) {
@@ -72,22 +62,30 @@ export class ClimateDevice {
     }
   }
 
-  private setValue(
-    key: string,
-    value: number | { explicitDouble: number }
-  ): Promise<void> {
-    return this.xmlRpcClient.setValue(this.heatingChannel.address, key, value);
+  private setDouble(key: string, value: number): Promise<void> {
+    return this.deviceApi.setDouble(
+      this.device,
+      this.heatingChannel.address,
+      key,
+      value
+    );
+  }
+
+  private setValue(key: string, value: number): Promise<void> {
+    return this.deviceApi.setValue(
+      this.device,
+      this.heatingChannel.address,
+      key,
+      value
+    );
   }
 }
 
 @Provide()
 export class ClimateDeviceFactory {
-  constructor(
-    private interfacesApi: InterfacesApi,
-    private xmlRpcClient: XmlRpcClient
-  ) {}
+  constructor(private deviceApi: DeviceApi) {}
 
   getClimateDevice(device: Device) {
-    return new ClimateDevice(device, this.interfacesApi, this.xmlRpcClient);
+    return new ClimateDevice(device, this.deviceApi);
   }
 }

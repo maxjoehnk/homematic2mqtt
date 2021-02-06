@@ -1,13 +1,9 @@
 import { MqttConnection } from '../../connection';
 import { BaseDiscoveryModel } from '../domains/base';
 import { getLogger } from '../../../logger';
-import { InterfacesApi } from '../../../homematic/json/interfaces-api';
-import { InterfaceDeviceDescription } from '../../../homematic/json/models/interface-device-description';
 import { injectable } from 'inversify';
 import { SensorDiscoveryModel } from '../domains/sensor';
-import { BinaryDeviceClass } from '../domains/device_class';
 import { SensorDeviceClass } from '../domains/sensor_device_class';
-import { BinarySensorDiscoveryModel } from '../domains/binary_sensor';
 import { Device } from '../../../devices/device';
 
 @injectable()
@@ -15,16 +11,11 @@ export abstract class DeviceAnnouncer {
   private static readonly logger = getLogger();
 
   constructor(
-    private mqtt: MqttConnection,
-    private interfacesApi: InterfacesApi
+    private mqtt: MqttConnection
   ) {}
 
   async announce(device: Device): Promise<void> {
-    const description = await this.interfacesApi.getDeviceDescription(
-      device.interface,
-      device.address
-    );
-    const base = this.getBaseModel(device, description);
+    const base = this.getBaseModel(device);
     const entities = this.getEntities(base, device);
 
     DeviceAnnouncer.logger.debug('Announcing device', {
@@ -66,16 +57,15 @@ export abstract class DeviceAnnouncer {
   ): EntityConfiguration[];
 
   private getBaseModel(
-    device: Device,
-    description: InterfaceDeviceDescription
+    device: Device
   ): BaseDiscoveryModel {
     return {
       device: {
         name: device.name,
         identifiers: [device.address],
-        model: device.details.type,
+        model: device.model,
         manufacturer: 'Homematic',
-        sw_version: description.firmware,
+        sw_version: device.firmwareVersion,
       },
       availability: [
         {

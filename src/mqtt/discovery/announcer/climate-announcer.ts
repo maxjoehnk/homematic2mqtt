@@ -3,7 +3,6 @@ import { BaseDiscoveryModel } from '../domains/base';
 import { ClimateDiscoveryModel, HvacMode } from '../domains/climate';
 import { Provide } from '../../../ioc-container';
 import { MqttConnection } from '../../connection';
-import { InterfacesApi } from '../../../homematic/json/interfaces-api';
 import { SensorDiscoveryModel } from '../domains/sensor';
 import { SensorDeviceClass } from '../domains/sensor_device_class';
 import { Device } from '../../../devices/device';
@@ -11,11 +10,11 @@ import { Device } from '../../../devices/device';
 @Provide()
 export class ClimateAnnouncer extends DeviceAnnouncer {
   static supportsDevice(device: Device): boolean {
-    return device.details.type === 'HmIP-eTRV-2';
+    return device.model === 'HmIP-eTRV-2';
   }
 
-  constructor(mqtt: MqttConnection, interfacesApi: InterfacesApi) {
-    super(mqtt, interfacesApi);
+  constructor(mqtt: MqttConnection) {
+    super(mqtt);
   }
 
   getDomainEntities(

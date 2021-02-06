@@ -1,10 +1,11 @@
 import { inject } from 'inversify';
-import { Config, ConfigToken } from '../../config';
+import { Config, ConfigToken } from '../../../config';
 import { createServer } from 'homematic-xmlrpc';
-import { ApplicationInitializer } from '../../lifecycle/application-initializer';
-import { ProvideInterface, Singleton } from '../../ioc-container';
-import { getLogger } from '../../logger';
-import { DeviceRegistry } from '../../devices/device-registry';
+import { ApplicationInitializer } from '../../../lifecycle/application-initializer';
+import { ProvideInterface, Singleton } from '../../../ioc-container';
+import { getLogger } from '../../../logger';
+import { DeviceRegistry } from '../../../devices/device-registry';
+import { NativeDeviceRegistry } from '../native-device-registry';
 
 @Singleton()
 @ProvideInterface(ApplicationInitializer)
@@ -14,12 +15,15 @@ export class XmlRpcServer implements ApplicationInitializer {
 
   constructor(
     @inject(ConfigToken) private config: Config,
-    private deviceRegistry: DeviceRegistry
+    private deviceRegistry: NativeDeviceRegistry
   ) {}
 
   order = 1;
 
   async initialize(): Promise<void> {
+    if (this.config.homematic.xml == null) {
+      return;
+    }
     await this.createServer();
     this.server.on('event', (err, params, callback) => {
       XmlRpcServer.logger.debug('Received event', {
@@ -66,13 +70,10 @@ export class XmlRpcServer implements ApplicationInitializer {
     // TODO: add configuration option
     const port = 2031;
     return new Promise((resolve) => {
-      this.server = createServer(
-        { host: '0.0.0.0', port },
-        () => {
-          XmlRpcServer.logger.info('XML-RPC Server listening', { port });
-          resolve();
-        }
-      );
+      this.server = createServer({ host: '0.0.0.0', port }, () => {
+        XmlRpcServer.logger.info('XML-RPC Server listening', { port });
+        resolve();
+      });
     });
   }
 
@@ -91,6 +92,12 @@ export class XmlRpcServer implements ApplicationInitializer {
       xmlRpc: { event: 'event', channelAddress, key, value },
     });
     const device = this.deviceRegistry.getDeviceForChannel(channelAddress);
+    if (device == null) {
+      XmlRpcServer.logger.debug(
+        `Dismissing event for channel ${channelAddress}`
+      );
+      return;
+    }
     device.updateValue(channelAddress, key, value);
   }
 }

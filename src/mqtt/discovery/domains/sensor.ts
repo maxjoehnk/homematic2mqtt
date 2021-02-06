@@ -1,5 +1,4 @@
 import { BaseDiscoveryModel } from './base';
-import { BinaryDeviceClass } from './device_class';
 import { SensorDeviceClass } from './sensor_device_class';
 
 export interface SensorDiscoveryModel extends BaseDiscoveryModel {

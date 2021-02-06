@@ -4,17 +4,16 @@ import { BinaryDeviceClass } from '../domains/device_class';
 import { BaseDiscoveryModel } from '../domains/base';
 import { Provide } from '../../../ioc-container';
 import { MqttConnection } from '../../connection';
-import { InterfacesApi } from '../../../homematic/json/interfaces-api';
 import { Device } from '../../../devices/device';
 
 @Provide()
 export class WindowContactAnnouncer extends DeviceAnnouncer {
   static supportsDevice(device: Device): boolean {
-    return device.details.type === 'HMIP-SWDO';
+    return device.model === 'HMIP-SWDO';
   }
 
-  constructor(mqtt: MqttConnection, interfacesApi: InterfacesApi) {
-    super(mqtt, interfacesApi);
+  constructor(mqtt: MqttConnection) {
+    super(mqtt);
   }
 
   getDomainEntities(

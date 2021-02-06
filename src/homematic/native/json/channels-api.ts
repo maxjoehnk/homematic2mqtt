@@ -1,4 +1,4 @@
-import { Provide } from '../../ioc-container';
+import { Provide } from '../../../ioc-container';
 import { JsonRpcClient } from './json-rpc-client';
 import { AuthenticatedRequest, DeviceDetails } from './models';
 import { methods } from './methods';

@@ -1,6 +1,5 @@
-import { Provide } from '../../ioc-container';
+import { Provide } from '../../../ioc-container';
 import { JsonRpcClient } from './json-rpc-client';
-import { AuthenticatedRequest, DeviceDetails } from './models';
 import { methods } from './methods';
 import { Interface } from './models/interface';
 import { InterfaceDevice } from './models/interface-device';

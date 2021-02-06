@@ -1,4 +1,4 @@
-export interface DeviceStatus {
+export interface JsonDeviceStatus {
   ID: string;
   ADDRESS: string;
   INTERFACE: string;

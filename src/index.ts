@@ -2,9 +2,8 @@ import 'reflect-metadata';
 import './mqtt';
 import './state-publisher/state-publisher';
 import './state-publisher/bridge-state-publisher';
-import './homematic/xml/xml-rpc-server';
-import './homematic/xml/xml-rpc-client';
-import './homematic/json/json-rpc-client';
+import loadNative from './homematic/native';
+import loadCcuJack from './homematic/ccu-jack';
 import { safeLoad } from 'js-yaml';
 import { readFileSync } from 'fs';
 import { Config, ConfigToken } from './config';
@@ -18,6 +17,11 @@ const config: Config = safeLoad(configContent);
 defaultContainer.bind(ConfigToken).toConstantValue(config);
 
 async function main() {
+  if (config.homematic.jack != null) {
+    await loadCcuJack();
+  } else {
+    await loadNative();
+  }
   const initializers = defaultContainer.getAll(ApplicationInitializer);
   initializers.sort((a, b) => a.order - b.order);
   for (const initializer of initializers) {
