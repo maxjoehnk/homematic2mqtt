@@ -63,21 +63,11 @@ export class ClimateDevice {
   }
 
   private setDouble(key: string, value: number): Promise<void> {
-    return this.deviceApi.setDouble(
-      this.device,
-      this.heatingChannel.address,
-      key,
-      value
-    );
+    return this.deviceApi.setDouble(this.device, this.heatingChannel.address, key, value);
   }
 
   private setValue(key: string, value: number): Promise<void> {
-    return this.deviceApi.setValue(
-      this.device,
-      this.heatingChannel.address,
-      key,
-      value
-    );
+    return this.deviceApi.setValue(this.device, this.heatingChannel.address, key, value);
   }
 }
 

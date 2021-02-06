@@ -28,12 +28,7 @@ export class JackDeviceApi implements DeviceApi {
     property: string,
     value: number
   ): Promise<void> {
-    const channel = device.channelDefinitions.find(
-      (c) => c.address === channelAddress
-    );
-    await this.client.writeProperty(
-      `device/${device.address}/${channel.index}/${property}`,
-      value
-    );
+    const channel = device.channelDefinitions.find((c) => c.address === channelAddress);
+    await this.client.writeProperty(`device/${device.address}/${channel.index}/${property}`, value);
   }
 }

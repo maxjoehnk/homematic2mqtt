@@ -63,8 +63,6 @@ export abstract class Device {
    * Returns whether this is a climate device
    */
   get isClimate(): boolean {
-    return this.channels.some(
-      (c) => c.type === ChannelType.HeatingClimateControlTransceiver
-    );
+    return this.channels.some((c) => c.type === ChannelType.HeatingClimateControlTransceiver);
   }
 }

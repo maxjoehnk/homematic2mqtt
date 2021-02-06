@@ -6,10 +6,7 @@ import { DeviceRegistry } from '../../devices/device-registry';
 @Provide()
 @ProvideInterface(ApplicationInitializer)
 export class HomeassistantDiscovery implements ApplicationInitializer {
-  constructor(
-    private announcerFactory: AnnouncerFactory,
-    private deviceRegistry: DeviceRegistry
-  ) {}
+  constructor(private announcerFactory: AnnouncerFactory, private deviceRegistry: DeviceRegistry) {}
 
   order = 99;
 

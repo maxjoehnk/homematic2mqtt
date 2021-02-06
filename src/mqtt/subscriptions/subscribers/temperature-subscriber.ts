@@ -2,10 +2,7 @@ import { Subscriber } from '../subscriber';
 import { Provide, ProvideInterface } from '../../../ioc-container';
 import { SubscriberFactory } from '../subscriber-factory';
 import { DeviceRegistry } from '../../../devices/device-registry';
-import {
-  ClimateDevice,
-  ClimateDeviceFactory,
-} from '../../../devices/climate-device';
+import { ClimateDevice, ClimateDeviceFactory } from '../../../devices/climate-device';
 
 export class TemperatureSubscriber implements Subscriber {
   constructor(private climateDevice: ClimateDevice) {}

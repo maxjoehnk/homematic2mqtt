@@ -17,10 +17,7 @@ export class ClimateAnnouncer extends DeviceAnnouncer {
     super(mqtt);
   }
 
-  getDomainEntities(
-    base: BaseDiscoveryModel,
-    device: Device
-  ): EntityConfiguration[] {
+  getDomainEntities(base: BaseDiscoveryModel, device: Device): EntityConfiguration[] {
     return [
       {
         domain: 'climate',
@@ -40,10 +37,7 @@ export class ClimateAnnouncer extends DeviceAnnouncer {
     ];
   }
 
-  private getHvacEntity(
-    base: BaseDiscoveryModel,
-    device: Device
-  ): ClimateDiscoveryModel {
+  private getHvacEntity(base: BaseDiscoveryModel, device: Device): ClimateDiscoveryModel {
     return {
       ...base,
       name: base.device.name,
@@ -62,10 +56,7 @@ export class ClimateAnnouncer extends DeviceAnnouncer {
     };
   }
 
-  private getTemperatureEntity(
-    base: BaseDiscoveryModel,
-    device: Device
-  ): SensorDiscoveryModel {
+  private getTemperatureEntity(base: BaseDiscoveryModel, device: Device): SensorDiscoveryModel {
     return {
       ...base,
       name: `${base.device.name} Current Temperature`,
@@ -78,10 +69,7 @@ export class ClimateAnnouncer extends DeviceAnnouncer {
     };
   }
 
-  private getValveEntity(
-    base: BaseDiscoveryModel,
-    device: Device
-  ): SensorDiscoveryModel {
+  private getValveEntity(base: BaseDiscoveryModel, device: Device): SensorDiscoveryModel {
     return {
       ...base,
       name: `${device.name} Valve`,

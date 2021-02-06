@@ -17,14 +17,19 @@ export class MqttConnection {
     this.logger.debug('Publishing mqtt message', { topic });
     const payload = this.serializePayload(message);
     return new Promise((resolve, reject) => {
-      this.client.publish(topic, payload, {
-        retain: true
-      }, (err) => {
-        if (err) {
-          return reject(err);
+      this.client.publish(
+        topic,
+        payload,
+        {
+          retain: true,
+        },
+        (err) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve();
         }
-        return resolve();
-      });
+      );
     });
   }
 
@@ -34,9 +39,7 @@ export class MqttConnection {
     } else if (typeof message === 'string') {
       return message;
     }
-    throw new Error(
-      `No serializer for message type ${typeof message}: ${message}`
-    );
+    throw new Error(`No serializer for message type ${typeof message}: ${message}`);
   }
 
   async on(topic: string, callback: (payload: any) => void): Promise<void> {

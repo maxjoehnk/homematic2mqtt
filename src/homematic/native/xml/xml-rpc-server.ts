@@ -37,12 +37,7 @@ export class XmlRpcServer implements ApplicationInitializer {
       XmlRpcServer.logger.debug('Received listMethods', {
         xmlRpc: { event: 'system.listMethods', params },
       });
-      callback(null, [
-        'system.listMethods',
-        'system.multicall',
-        'event',
-        'listDevices',
-      ]);
+      callback(null, ['system.listMethods', 'system.multicall', 'event', 'listDevices']);
     });
     this.server.on('listDevices', function (err, params, callback) {
       XmlRpcServer.logger.debug('Received listDevices', {
@@ -93,9 +88,7 @@ export class XmlRpcServer implements ApplicationInitializer {
     });
     const device = this.deviceRegistry.getDeviceForChannel(channelAddress);
     if (device == null) {
-      XmlRpcServer.logger.debug(
-        `Dismissing event for channel ${channelAddress}`
-      );
+      XmlRpcServer.logger.debug(`Dismissing event for channel ${channelAddress}`);
       return;
     }
     device.updateValue(channelAddress, key, value);

@@ -1,8 +1,5 @@
 import { Device } from '../../devices/device';
-import {
-  JackChannelResponse,
-  JackDeviceResponse,
-} from './clients/jack-rest-client';
+import { JackChannelResponse, JackDeviceResponse } from './clients/jack-rest-client';
 import { ChannelType, DeviceChannel } from '../../devices/channels';
 
 export class JackDevice extends Device {

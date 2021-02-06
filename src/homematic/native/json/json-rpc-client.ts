@@ -11,10 +11,7 @@ export class JsonRpcClient implements ApplicationInitializer {
   private static readonly logger = getLogger();
   private sessionId: string;
 
-  constructor(
-    private http: AxiosInstance,
-    private config: JsonInterfaceConfig
-  ) {}
+  constructor(private http: AxiosInstance, private config: JsonInterfaceConfig) {}
 
   order = 0;
 
@@ -25,10 +22,7 @@ export class JsonRpcClient implements ApplicationInitializer {
     return this.login(this.config.username, this.config.password);
   }
 
-  async call<TRequest, TResponse>(
-    method: string,
-    params?: TRequest
-  ): Promise<TResponse> {
+  async call<TRequest, TResponse>(method: string, params?: TRequest): Promise<TResponse> {
     const body: JsonRpcRequest<TRequest> = {
       version: '1.1',
       method,

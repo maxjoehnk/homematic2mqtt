@@ -25,8 +25,7 @@ const heatingParamsets = [
 @Singleton()
 @ProvideInterface(ApplicationInitializer)
 @ProvideInterface(DeviceRegistry)
-export class NativeDeviceRegistry
-  implements ApplicationInitializer, DeviceRegistry {
+export class NativeDeviceRegistry implements ApplicationInitializer, DeviceRegistry {
   private devices: NativeDevice[] = [];
 
   constructor(
@@ -55,9 +54,7 @@ export class NativeDeviceRegistry
   }
 
   getDeviceForChannel(address: string): Device {
-    return this.devices.find((d) =>
-      d.details.channels.some((c) => c.address === address)
-    );
+    return this.devices.find((d) => d.details.channels.some((c) => c.address === address));
   }
 
   private async fetchDevices() {
@@ -76,10 +73,7 @@ export class NativeDeviceRegistry
 
   private async fetchDeviceState(device: NativeDevice) {
     for (const channel of device.details.channels) {
-      const state = await this.xmlRpcClient.getParamset(
-        channel.address,
-        ParamsetKey.Values
-      );
+      const state = await this.xmlRpcClient.getParamset(channel.address, ParamsetKey.Values);
 
       for (const key of Object.keys(state)) {
         device.updateValue(channel.address, key, state[key]);
@@ -95,10 +89,7 @@ export class NativeDeviceRegistry
     if (heatingChannel == null) {
       return;
     }
-    const state = await this.xmlRpcClient.getParamset(
-      heatingChannel.address,
-      ParamsetKey.Master
-    );
+    const state = await this.xmlRpcClient.getParamset(heatingChannel.address, ParamsetKey.Master);
 
     for (const key of heatingParamsets) {
       device.updateValue(heatingChannel.address, key, state[key]);

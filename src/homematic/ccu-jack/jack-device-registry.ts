@@ -10,16 +10,12 @@ import { inject } from 'inversify';
 @Singleton()
 @ProvideInterface(ApplicationInitializer)
 @ProvideInterface(DeviceRegistry)
-export class JackDeviceRegistry
-  implements ApplicationInitializer, DeviceRegistry {
+export class JackDeviceRegistry implements ApplicationInitializer, DeviceRegistry {
   private devices: JackDevice[] = [];
 
   order = 2;
 
-  constructor(
-    private restClient: JackRestClient,
-    @inject(ConfigToken) private config: Config
-  ) {}
+  constructor(private restClient: JackRestClient, @inject(ConfigToken) private config: Config) {}
 
   async initialize(): Promise<void> {
     const devices = await this.fetchDevices();

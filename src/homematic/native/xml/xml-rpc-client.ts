@@ -10,8 +10,7 @@ import { ApplicationFinalizer } from '../../../lifecycle/application-finalizer';
 @Singleton()
 @ProvideInterface(ApplicationInitializer)
 @ProvideInterface(ApplicationFinalizer)
-export class XmlRpcClient
-  implements ApplicationInitializer, ApplicationFinalizer {
+export class XmlRpcClient implements ApplicationInitializer, ApplicationFinalizer {
   private static readonly logger = getLogger();
   private client;
 
@@ -49,10 +48,7 @@ export class XmlRpcClient
     return this.call('init', [this.getUrl(), 'homematic2mqtt']);
   }
 
-  private call<TResponse>(
-    method: string,
-    params: string[]
-  ): Promise<TResponse> {
+  private call<TResponse>(method: string, params: string[]): Promise<TResponse> {
     return new Promise((resolve, reject) => {
       XmlRpcClient.logger.debug('Calling xml-rpc method', {
         xmlRpc: { method, params },

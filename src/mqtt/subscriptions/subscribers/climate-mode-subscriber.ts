@@ -3,10 +3,7 @@ import { HvacMode } from '../../discovery/domains/climate';
 import { Provide, ProvideInterface } from '../../../ioc-container';
 import { DeviceRegistry } from '../../../devices/device-registry';
 import { SubscriberFactory } from '../subscriber-factory';
-import {
-  ClimateDevice,
-  ClimateDeviceFactory,
-} from '../../../devices/climate-device';
+import { ClimateDevice, ClimateDeviceFactory } from '../../../devices/climate-device';
 
 export class ClimateModeSubscriber implements Subscriber {
   constructor(private climateDevice: ClimateDevice) {}

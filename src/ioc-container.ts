@@ -9,13 +9,9 @@ export function Provide() {
   };
 }
 
-export function ProvideInterface<T>(
-  interfaceType: interfaces.ServiceIdentifier<T>
-) {
+export function ProvideInterface<T>(interfaceType: interfaces.ServiceIdentifier<T>) {
   return (target) => {
-    defaultContainer
-      .bind(interfaceType)
-      .toDynamicValue((c) => c.container.get(target));
+    defaultContainer.bind(interfaceType).toDynamicValue((c) => c.container.get(target));
     return target;
   };
 }

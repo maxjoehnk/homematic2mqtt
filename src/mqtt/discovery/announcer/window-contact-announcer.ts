@@ -16,10 +16,7 @@ export class WindowContactAnnouncer extends DeviceAnnouncer {
     super(mqtt);
   }
 
-  getDomainEntities(
-    base: BaseDiscoveryModel,
-    device: Device
-  ): EntityConfiguration[] {
+  getDomainEntities(base: BaseDiscoveryModel, device: Device): EntityConfiguration[] {
     return [
       {
         domain: 'binary_sensor',
@@ -29,10 +26,7 @@ export class WindowContactAnnouncer extends DeviceAnnouncer {
     ];
   }
 
-  private getContactEntity(
-    base: BaseDiscoveryModel,
-    device: Device
-  ): BinarySensorDiscoveryModel {
+  private getContactEntity(base: BaseDiscoveryModel, device: Device): BinarySensorDiscoveryModel {
     return {
       ...base,
       device_class: BinaryDeviceClass.Window,

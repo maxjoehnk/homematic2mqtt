@@ -25,9 +25,7 @@ export class AnnouncerFactory {
     const Announcer = this.announcers.find((a) => a.supportsDevice(device));
 
     if (Announcer == null) {
-      throw new Error(
-        `No announcer for device ${device.name} (${device.model})`
-      );
+      throw new Error(`No announcer for device ${device.name} (${device.model})`);
     }
 
     return defaultContainer.get<DeviceAnnouncer>(Announcer);

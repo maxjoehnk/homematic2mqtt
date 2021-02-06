@@ -9,10 +9,7 @@ import { getLogger } from '../../logger';
 export class JackDeviceObserver implements ApplicationInitializer {
   private static readonly logger = getLogger();
 
-  constructor(
-    private mqttClient: JackMqttClient,
-    private deviceRegistry: JackDeviceRegistry
-  ) {}
+  constructor(private mqttClient: JackMqttClient, private deviceRegistry: JackDeviceRegistry) {}
 
   order = 50;
 
@@ -24,10 +21,7 @@ export class JackDeviceObserver implements ApplicationInitializer {
 
       const device = this.deviceRegistry.getDeviceByAddress(address);
       if (device == null) {
-        JackDeviceObserver.logger.debug(
-          'Discarding status change for unknown device',
-          { address }
-        );
+        JackDeviceObserver.logger.debug('Discarding status change for unknown device', { address });
         return;
       }
       device.updateValue(address, parameter, payload.v);

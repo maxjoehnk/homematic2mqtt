@@ -10,9 +10,7 @@ import { Device } from '../../../devices/device';
 export abstract class DeviceAnnouncer {
   private static readonly logger = getLogger();
 
-  constructor(
-    private mqtt: MqttConnection
-  ) {}
+  constructor(private mqtt: MqttConnection) {}
 
   async announce(device: Device): Promise<void> {
     const base = this.getBaseModel(device);
@@ -51,14 +49,9 @@ export abstract class DeviceAnnouncer {
     return [...domainEntities, batteryEntity, linkEntity, voltageEntity];
   }
 
-  abstract getDomainEntities(
-    base: BaseDiscoveryModel,
-    device: Device
-  ): EntityConfiguration[];
+  abstract getDomainEntities(base: BaseDiscoveryModel, device: Device): EntityConfiguration[];
 
-  private getBaseModel(
-    device: Device
-  ): BaseDiscoveryModel {
+  private getBaseModel(device: Device): BaseDiscoveryModel {
     return {
       device: {
         name: device.name,
@@ -78,10 +71,7 @@ export abstract class DeviceAnnouncer {
     };
   }
 
-  private getBatteryEntity(
-    base: BaseDiscoveryModel,
-    device: Device
-  ): SensorDiscoveryModel {
+  private getBatteryEntity(base: BaseDiscoveryModel, device: Device): SensorDiscoveryModel {
     return {
       ...base,
       device_class: SensorDeviceClass.Battery,
@@ -94,10 +84,7 @@ export abstract class DeviceAnnouncer {
     };
   }
 
-  private getVoltageEntity(
-    base: BaseDiscoveryModel,
-    device: Device
-  ): SensorDiscoveryModel {
+  private getVoltageEntity(base: BaseDiscoveryModel, device: Device): SensorDiscoveryModel {
     return {
       ...base,
       device_class: SensorDeviceClass.Voltage,
@@ -109,10 +96,7 @@ export abstract class DeviceAnnouncer {
     };
   }
 
-  private getLinkQualityEntity(
-    base: BaseDiscoveryModel,
-    device: Device
-  ): SensorDiscoveryModel {
+  private getLinkQualityEntity(base: BaseDiscoveryModel, device: Device): SensorDiscoveryModel {
     return {
       ...base,
       device_class: SensorDeviceClass.SignalStrength,

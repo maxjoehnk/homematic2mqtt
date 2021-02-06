@@ -10,10 +10,7 @@ export class JackRestClient {
     return `http://${this.config.ip}:${this.config.httpPort ?? 2121}`;
   }
 
-  constructor(
-    private http: AxiosInstance,
-    private config: JackInterfaceConfig
-  ) {}
+  constructor(private http: AxiosInstance, private config: JackInterfaceConfig) {}
 
   async getDevices(): Promise<JackDeviceResponse[]> {
     const res = await this.http.get<JackDeviceList>(`${this.baseUrl}/device`);
@@ -30,9 +27,7 @@ export class JackRestClient {
     return devices;
   }
 
-  async getChannels(
-    device: JackDeviceResponse
-  ): Promise<JackChannelResponse[]> {
+  async getChannels(device: JackDeviceResponse): Promise<JackChannelResponse[]> {
     const channels = [];
     for (const link of device['~links']) {
       if (link.rel !== 'channel') {

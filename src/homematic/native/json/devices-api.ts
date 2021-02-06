@@ -14,15 +14,11 @@ export class JsonDevicesApi implements DeviceApi {
   constructor(private rpc: JsonRpcClient, private xmlRpcClient: XmlRpcClient) {}
 
   async listAllDevices(): Promise<string[]> {
-    return await this.rpc.call<AuthenticatedRequest, string[]>(
-      methods.deviceListAll
-    );
+    return await this.rpc.call<AuthenticatedRequest, string[]>(methods.deviceListAll);
   }
 
   async listAllDeviceDetails(): Promise<DeviceDetails[]> {
-    return await this.rpc.call<AuthenticatedRequest, DeviceDetails[]>(
-      methods.deviceListAllDetail
-    );
+    return await this.rpc.call<AuthenticatedRequest, DeviceDetails[]>(methods.deviceListAllDetail);
   }
 
   async listStatus(device: NativeDevice): Promise<JsonDeviceStatus> {
@@ -47,23 +43,13 @@ export class JsonDevicesApi implements DeviceApi {
     } as DeviceStatus;
   }
 
-  setDouble(
-    device: Device,
-    channelAddress: string,
-    property: string,
-    value: number
-  ) {
+  setDouble(device: Device, channelAddress: string, property: string, value: number) {
     return this.xmlRpcClient.setValue(channelAddress, property, {
       explicitDouble: value,
     });
   }
 
-  setValue(
-    device: Device,
-    channelAddress: string,
-    property: string,
-    value: number
-  ) {
+  setValue(device: Device, channelAddress: string, property: string, value: number) {
     return this.xmlRpcClient.setValue(channelAddress, property, value);
   }
 }

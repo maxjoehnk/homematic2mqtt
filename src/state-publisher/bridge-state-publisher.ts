@@ -6,8 +6,7 @@ import { ApplicationFinalizer } from '../lifecycle/application-finalizer';
 @Provide()
 @ProvideInterface(ApplicationInitializer)
 @ProvideInterface(ApplicationFinalizer)
-export class BridgeStatePublisher
-  implements ApplicationInitializer, ApplicationFinalizer {
+export class BridgeStatePublisher implements ApplicationInitializer, ApplicationFinalizer {
   constructor(private mqtt: MqttConnection) {}
 
   order = 99;

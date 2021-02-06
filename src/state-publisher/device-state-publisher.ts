@@ -6,11 +6,7 @@ import { StateEnhancer } from './enhancers/state-enhancer';
 import { DeviceApi, DeviceStatus } from '../devices/device-api';
 
 export class DeviceStatePublisher {
-  constructor(
-    private device: Device,
-    private mqtt: MqttConnection,
-    private devicesApi: DeviceApi
-  ) {
+  constructor(private device: Device, private mqtt: MqttConnection, private devicesApi: DeviceApi) {
     this.device.subscribe(() => this.publishState());
   }
 
