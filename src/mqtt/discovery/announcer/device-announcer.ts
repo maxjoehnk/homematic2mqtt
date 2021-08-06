@@ -5,6 +5,7 @@ import { injectable } from 'inversify';
 import { SensorDiscoveryModel } from '../domains/sensor';
 import { SensorDeviceClass } from '../domains/sensor_device_class';
 import { Device } from '../../../devices/device';
+import { SensorStateClass } from '../domains/sensor_state_class';
 
 @injectable()
 export abstract class DeviceAnnouncer {
@@ -75,6 +76,7 @@ export abstract class DeviceAnnouncer {
     return {
       ...base,
       device_class: SensorDeviceClass.Battery,
+      state_class: SensorStateClass.Measurement,
       unit_of_measurement: '%',
       state_topic: this.getTopic(device),
       json_attributes_topic: this.getTopic(device),
@@ -88,6 +90,7 @@ export abstract class DeviceAnnouncer {
     return {
       ...base,
       device_class: SensorDeviceClass.Voltage,
+      state_class: SensorStateClass.Measurement,
       state_topic: this.getTopic(device),
       json_attributes_topic: this.getTopic(device),
       value_template: '{{ value_json.voltage }}',
@@ -100,6 +103,7 @@ export abstract class DeviceAnnouncer {
     return {
       ...base,
       device_class: SensorDeviceClass.SignalStrength,
+      state_class: SensorStateClass.Measurement,
       state_topic: this.getTopic(device),
       json_attributes_topic: this.getTopic(device),
       value_template: '{{ value_json.rssi }}',

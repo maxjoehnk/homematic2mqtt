@@ -1,8 +1,10 @@
 import { BaseDiscoveryModel } from './base';
 import { SensorDeviceClass } from './sensor_device_class';
+import { SensorStateClass } from './sensor_state_class';
 
 export interface SensorDiscoveryModel extends BaseDiscoveryModel {
   device_class?: SensorDeviceClass;
+  state_class?: SensorStateClass;
   expire_after?: number;
   force_update?: boolean;
   icon?: string;

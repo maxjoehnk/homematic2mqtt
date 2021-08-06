@@ -6,6 +6,7 @@ import { MqttConnection } from '../../connection';
 import { SensorDiscoveryModel } from '../domains/sensor';
 import { SensorDeviceClass } from '../domains/sensor_device_class';
 import { Device } from '../../../devices/device';
+import { SensorStateClass } from '../domains/sensor_state_class';
 
 @Provide()
 export class ClimateAnnouncer extends DeviceAnnouncer {
@@ -61,6 +62,7 @@ export class ClimateAnnouncer extends DeviceAnnouncer {
       ...base,
       name: `${base.device.name} Current Temperature`,
       device_class: SensorDeviceClass.Temperature,
+      state_class: SensorStateClass.Measurement,
       unit_of_measurement: '°C',
       state_topic: this.getTopic(device),
       json_attributes_topic: this.getTopic(device),
@@ -73,6 +75,7 @@ export class ClimateAnnouncer extends DeviceAnnouncer {
     return {
       ...base,
       name: `${device.name} Valve`,
+      state_class: SensorStateClass.Measurement,
       unit_of_measurement: '%',
       state_topic: this.getTopic(device),
       json_attributes_topic: this.getTopic(device),
